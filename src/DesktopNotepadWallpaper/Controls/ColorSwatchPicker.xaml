@@ -1,0 +1,80 @@
+<UserControl x:Class="DesktopNotepadWallpaper.Controls.ColorSwatchPicker"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style x:Key="PresetColorButton" TargetType="Button">
+            <Setter Property="Width" Value="26" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="4" BorderBrush="#77999999" BorderThickness="1" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#FFFFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <ToggleButton x:Name="PART_Toggle" Width="72" Height="30"
+                      Cursor="Hand" ToolTip="点击选择颜色">
+            <Border Width="64" Height="22" CornerRadius="5"
+                    Background="{Binding SelectedBrush, ElementName=Root, Mode=OneWay}"
+                    BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" />
+        </ToggleButton>
+        <Popup PlacementTarget="{Binding ElementName=PART_Toggle}" Placement="Bottom"
+               StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"
+               IsOpen="{Binding IsChecked, ElementName=PART_Toggle, Mode=TwoWay}">
+            <Border Background="{DynamicResource RegionBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="10">
+                <StackPanel>
+                    <UniformGrid Columns="6">
+                        <Button Tag="#FFFFFF" Background="#FFFFFF" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#C0C0C0" Background="#C0C0C0" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#808080" Background="#808080" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#404040" Background="#404040" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#000000" Background="#000000" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#795548" Background="#795548" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#FFEB3B" Background="#FFEB3B" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#FFC107" Background="#FFC107" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#FF9800" Background="#FF9800" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#FF5722" Background="#FF5722" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#F44336" Background="#F44336" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#E91E63" Background="#E91E63" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#9C27B0" Background="#9C27B0" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#673AB7" Background="#673AB7" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#3F51B5" Background="#3F51B5" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#2196F3" Background="#2196F3" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#03A9F4" Background="#03A9F4" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#00BCD4" Background="#00BCD4" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#009688" Background="#009688" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#4CAF50" Background="#4CAF50" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#8BC34A" Background="#8BC34A" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#CDDC39" Background="#CDDC39" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#FFE0B2" Background="#FFE0B2" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                        <Button Tag="#355C7D" Background="#355C7D" Click="OnPresetClick" Style="{StaticResource PresetColorButton}" />
+                    </UniformGrid>
+                    <DockPanel Margin="0,10,0,0" LastChildFill="True">
+                        <Button Content="应用" DockPanel.Dock="Right" Margin="6,0,0,0"
+                                Height="28" Padding="10,0" Cursor="Hand"
+                                Click="OnApplyHexClick" />
+                        <TextBox x:Name="PART_HexBox" Text="#FFFFFF"
+                                 Height="28" FontSize="12"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="输入 Hex 颜色值，如 #FF5500" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

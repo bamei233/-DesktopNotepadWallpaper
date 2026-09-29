@@ -56,7 +56,16 @@ public sealed class TaskItem : INotifyPropertyChanged
         set => Set(ref _paletteOpen, value);
     }
 
+    /// <summary>多选模式下是否被选中（仅 UI 状态，不持久化）。</summary>
+    [JsonIgnore]
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set => Set(ref _isSelected, value);
+    }
+
     private bool _paletteOpen;
+    private bool _isSelected;
 
     [JsonIgnore]
     public string TagText

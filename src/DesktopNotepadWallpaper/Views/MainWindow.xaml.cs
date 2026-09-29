@@ -211,6 +211,27 @@ public partial class MainWindow
         }
     }
 
+    private void OnDeleteSelectedClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainViewModel vm)
+        {
+            return;
+        }
+        var count = vm.Tasks.Count(t => t.IsSelected);
+        if (count == 0)
+        {
+            return;
+        }
+        Growl.Ask($"确定删除选中的 {count} 个事件吗？", ok =>
+        {
+            if (ok)
+            {
+                vm.DeleteSelected();
+            }
+            return true;
+        });
+    }
+
     // ---- 实时丝滑拖拽排序 ----
     private TaskItem? _dragSource;
     private DragAdorner? _dragAdorner;

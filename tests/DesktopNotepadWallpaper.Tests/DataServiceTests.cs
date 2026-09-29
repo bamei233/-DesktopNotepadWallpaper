@@ -106,13 +106,13 @@ public sealed class DataServiceTests : IDisposable
     }
 
     [Fact]
-    public void 默认配置_字号为22_内边距为56()
+    public void 默认配置_字号为24_内边距为56()
     {
         var service = new DataService(_temp.Path);
 
         var config = service.LoadConfig();
 
-        Assert.Equal(22, config.Font.BaseSize);
+        Assert.Equal(24, config.Font.BaseSize);
         Assert.Equal(56, config.Padding.Left);
         Assert.Equal(56, config.Padding.Top);
         Assert.Equal(56, config.Padding.Right);

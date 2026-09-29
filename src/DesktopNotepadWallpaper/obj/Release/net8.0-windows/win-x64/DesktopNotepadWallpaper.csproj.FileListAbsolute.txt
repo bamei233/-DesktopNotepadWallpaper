@@ -485,3 +485,5 @@ C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-w
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\refint\DesktopNotepadWallpaper.dll
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper.genruntimeconfig.cache
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\ref\DesktopNotepadWallpaper.dll
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Controls\ColorSwatchPicker.baml
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Controls\ColorSwatchPicker.g.cs

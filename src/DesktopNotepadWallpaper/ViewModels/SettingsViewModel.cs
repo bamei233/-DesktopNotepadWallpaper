@@ -241,17 +241,31 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
         }
         try
         {
-            var backgroundDir = Path.Combine(_data.DataDir, "Background");
-            Directory.CreateDirectory(backgroundDir);
-            var name = "bg_" + Guid.NewGuid().ToString("N") + ".png";
-            GalleryService.ConvertToPng(dialog.FileName, Path.Combine(backgroundDir, name));
-            UpdateConfig(() => _config.WallpaperBackground.ImagePath = Path.Combine("Background", name));
-            OnPropertyChanged(nameof(BgImageName));
+            ApplyBackgroundImage(dialog.FileName);
+            Growl.SuccessGlobal("背景图片已设置（背景类型已切换为模糊图片）");
         }
         catch (Exception ex)
         {
             Growl.ErrorGlobal($"背景图片处理失败: {ex.Message}");
         }
+    }
+
+    /// <summary>应用背景图片：转 PNG 存入 Data/Background，并将背景类型切换为模糊图片。</summary>
+    public void ApplyBackgroundImage(string sourcePath)
+    {
+        var backgroundDir = Path.Combine(_data.DataDir, "Background");
+        Directory.CreateDirectory(backgroundDir);
+        var name = "bg_" + Guid.NewGuid().ToString("N") + ".png";
+        GalleryService.ConvertToPng(sourcePath, Path.Combine(backgroundDir, name));
+        UpdateConfig(() =>
+        {
+            _config.WallpaperBackground.ImagePath = Path.Combine("Background", name);
+            _config.WallpaperBackground.Style = "ImageBlur";
+        });
+        OnPropertyChanged(nameof(BgImageName));
+        OnPropertyChanged(nameof(IsSolidStyle));
+        OnPropertyChanged(nameof(IsGradientStyle));
+        OnPropertyChanged(nameof(IsImageBlurStyle));
     }
 
     // ---- 字体 ----

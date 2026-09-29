@@ -32,6 +32,23 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
     public ICommand SaveCommand { get; }
 
+    public ICommand SelectAllCommand { get; }
+
+    public ICommand DeleteSelectedCommand { get; }
+
+    /// <summary>是否有事件处于选中状态（控制批量删除按钮）。</summary>
+    public bool HasSelection
+    {
+        get => _hasSelection;
+        private set
+        {
+            _hasSelection = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _hasSelection;
+
     /// <summary>新增事件后触发（UI 用于聚焦新行输入框）。</summary>
     public event Action<TaskItem>? NewTaskAdded;
 
@@ -67,6 +84,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
         AddTaskCommand = new RelayCommand(AddTask);
         DeleteTaskCommand = new RelayCommand<TaskItem>(DeleteTask);
         SaveCommand = new RelayCommand(Save);
+        SelectAllCommand = new RelayCommand(SelectAll);
+        DeleteSelectedCommand = new RelayCommand(DeleteSelected);
 
         _rotator.Initialize();
         UpdateStatus();
@@ -166,6 +185,40 @@ public sealed class MainViewModel : INotifyPropertyChanged
     {
         if (e.PropertyName == nameof(TaskItem.IsCompleted))
         {
+            UpdateStatus();
+        }
+        else if (e.PropertyName == nameof(TaskItem.IsSelected))
+        {
+            UpdateHasSelection();
+        }
+    }
+
+    private void UpdateHasSelection()
+    {
+        HasSelection = Tasks.Any(t => t.IsSelected);
+    }
+
+    private void SelectAll()
+    {
+        var select = !Tasks.All(t => t.IsSelected);
+        foreach (var task in Tasks)
+        {
+            task.IsSelected = select;
+        }
+        UpdateHasSelection();
+    }
+
+    /// <summary>删除全部选中事件。</summary>
+    public void DeleteSelected()
+    {
+        var selected = Tasks.Where(t => t.IsSelected).ToList();
+        foreach (var task in selected)
+        {
+            Tasks.Remove(task);
+        }
+        if (selected.Count > 0)
+        {
+            UpdateHasSelection();
             UpdateStatus();
         }
     }

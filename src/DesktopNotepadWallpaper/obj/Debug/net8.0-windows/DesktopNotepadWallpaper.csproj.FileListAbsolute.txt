@@ -29,3 +29,6 @@ C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Debug\net8.0-win
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\bin\Debug\net8.0-windows\System.IO.Packaging.dll
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Debug\net8.0-windows\DesktopNotepadWallpaper.sourcelink.json
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Debug\net8.0-windows\Controls\ColorSwatchPicker.baml
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Debug\net8.0-windows\Controls\ColorSwatchPicker.g.cs

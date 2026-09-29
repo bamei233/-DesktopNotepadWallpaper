@@ -94,18 +94,81 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="DeleteButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
+        <!-- 多选勾选框：方形蓝色 -->
+        <Style x:Key="SelectionCheckBox" TargetType="CheckBox">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid Background="Transparent">
+                            <Border x:Name="Box" Width="20" Height="20" CornerRadius="5"
+                                    Background="Transparent"
+                                    BorderBrush="#778899" BorderThickness="1.5" />
+                            <Path x:Name="Check" Data="M 5 10.5 L 9 14.5 L 15.5 6.5"
+                                  Stroke="White" StrokeThickness="2"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                  Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="#355C7D" />
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#355C7D" />
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 完成勾选框：圆形绿色 -->
+        <Style x:Key="CompletionCheckBox" TargetType="CheckBox">
+            <Setter Property="Width" Value="26" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid Background="Transparent">
+                            <Ellipse x:Name="Box" Width="22" Height="22"
+                                     Fill="Transparent"
+                                     Stroke="#778899" StrokeThickness="1.5" />
+                            <Path x:Name="Check" Data="M 6.5 11.5 L 10 15 L 16.5 7.5"
+                                  Stroke="White" StrokeThickness="2.2"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                  Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Fill" Value="#4CAF50" />
+                                <Setter TargetName="Box" Property="Stroke" Value="#4CAF50" />
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="Stroke" Value="#4CAF50" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeleteButton" TargetType="Button">            <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Foreground" Value="#9AA7B5" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Width" Value="28" />
-            <Setter Property="Height" Value="28" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -189,6 +252,11 @@
                             Click="OnImportWordClick" />
                     <Button Content="图库" Style="{StaticResource ToolbarButton}"
                             Click="OnGalleryClick" ToolTip="导入/管理图库图片（最多 20 张）" />
+                    <Button Content="全选" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding SelectAllCommand}" ToolTip="全选/取消全选所有事件" />
+                    <Button Content="删除选中" Style="{StaticResource ToolbarButton}"
+                            IsEnabled="{Binding HasSelection}"
+                            Click="OnDeleteSelectedClick" ToolTip="删除所有勾选的事件" />
                     <Button Content="保存" Style="{StaticResource ToolbarButtonPrimary}"
                             Command="{Binding SaveCommand}" />
                     <Button Content="设置" Style="{StaticResource ToolbarButton}"
@@ -213,29 +281,32 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" MaxWidth="560" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" MaxWidth="540" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
+                                    <!-- 多选勾选框（方形） -->
+                                    <CheckBox Grid.Column="0"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"
+                                              Style="{StaticResource SelectionCheckBox}"
+                                              ToolTip="勾选后可用「删除选中」批量删除"
+                                              IsChecked="{Binding IsSelected}" />
+
                                     <!-- 拖拽把手 -->
-                                    <TextBlock Grid.Column="0" Text="☰"
+                                    <TextBlock Grid.Column="1" Text="☰"
                                                VerticalAlignment="Center"
-                                               Margin="0,0,10,0"
+                                               Margin="0,0,12,0"
                                                Foreground="#6B7785"
-                                               FontSize="14"
+                                               FontSize="18"
                                                Cursor="SizeAll"
                                                ToolTip="拖拽调整顺序"
                                                PreviewMouseLeftButtonDown="OnGripMouseDown"
                                                PreviewMouseMove="OnGripMouseMove"
                                                PreviewMouseLeftButtonUp="OnGripMouseUp" />
-
-                                    <!-- 复选框 -->
-                                    <CheckBox Grid.Column="1"
-                                              VerticalAlignment="Center"
-                                              Margin="0,0,12,0"
-                                              IsChecked="{Binding IsCompleted}" />
 
                                     <!-- 描述（左）+ 标签 -->
                                     <StackPanel Grid.Column="2" Margin="0,0,12,0" VerticalAlignment="Center">
@@ -275,7 +346,7 @@
                                             <ToggleButton x:Name="TagToggle"
                                                           Style="{StaticResource MetaToggleButton}"
                                                           ToolTip="编辑标签">
-                                                <TextBlock FontSize="12">
+                                                <TextBlock FontSize="13">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
                                                             <Setter Property="Text" Value="{Binding TagText, StringFormat=# {0}}" />
@@ -303,8 +374,8 @@
                                                         <TextBlock Text="标签（多个用空格或逗号分隔）"
                                                                    FontSize="12" Foreground="#9AA7B5" Margin="0,0,0,6" />
                                                         <TextBox Width="240" FontSize="13"
-                                                                 Text="{Binding TagText, UpdateSourceTrigger=PropertyChanged}"
-                                                                 hc:InfoElement.Placeholder="输入标签" />
+                                                                 Text="{Binding TagText, UpdateSourceTrigger=LostFocus}"
+                                                                 hc:InfoElement.Placeholder="输入标签（空格或逗号分隔）" />
                                                         <Button Content="完成" Height="30" MinWidth="72"
                                                                 Margin="0,10,0,0" HorizontalAlignment="Right"
                                                                 Style="{StaticResource ToolbarButtonPrimary}"
@@ -317,18 +388,19 @@
 
                                     <!-- 截止时间（事件右侧） -->
                                     <hc:DateTimePicker Grid.Column="3"
-                                                       Width="150"
+                                                       Width="170"
                                                        VerticalAlignment="Center"
-                                                       FontSize="12"
+                                                       FontSize="13"
+                                                       Height="34"
                                                        DateTimeFormat="yyyy-MM-dd HH:mm"
                                                        SelectedDateTime="{Binding Deadline, Mode=TwoWay}"
                                                        hc:InfoElement.Placeholder="截止时间"
                                                        ToolTip="点击选择截止日期和时间" />
 
                                     <!-- 高亮颜色 -->
-                                    <Grid Grid.Column="4" VerticalAlignment="Center" Margin="12,0,10,0">
+                                    <Grid Grid.Column="4" VerticalAlignment="Center" Margin="12,0,12,0">
                                         <ToggleButton x:Name="SwatchToggle"
-                                                      Width="22" Height="22"
+                                                      Width="30" Height="30"
                                                       Cursor="Hand"
                                                       ToolTip="高亮颜色"
                                                       IsChecked="{Binding IsPaletteOpen, Mode=TwoWay}">
@@ -338,7 +410,7 @@
                                                         <Ellipse x:Name="Dot"
                                                                  Fill="{Binding HighlightColor, Converter={StaticResource HighlightKeyBrushConverter}}"
                                                                  Stroke="{DynamicResource BorderBrush}"
-                                                                 StrokeThickness="1.5" />
+                                                                 StrokeThickness="2" />
                                                     </Grid>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
@@ -383,8 +455,16 @@
                                         </Popup>
                                     </Grid>
 
+                                    <!-- 完成勾选框（圆形，颜色右侧） -->
+                                    <CheckBox Grid.Column="5"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"
+                                              Style="{StaticResource CompletionCheckBox}"
+                                              ToolTip="勾选表示事件已完成"
+                                              IsChecked="{Binding IsCompleted}" />
+
                                     <!-- X 删除 -->
-                                    <Button Grid.Column="5" Content="✕"
+                                    <Button Grid.Column="6" Content="✕"
                                             VerticalAlignment="Center"
                                             Style="{StaticResource DeleteButton}"
                                             ToolTip="删除事件"

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DesktopNotepadWallpaper.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fb3487eb8721f0af1231df6529a63da0f346acb4")]
 [assembly: System.Reflection.AssemblyProductAttribute("DesktopNotepadWallpaper.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DesktopNotepadWallpaper.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

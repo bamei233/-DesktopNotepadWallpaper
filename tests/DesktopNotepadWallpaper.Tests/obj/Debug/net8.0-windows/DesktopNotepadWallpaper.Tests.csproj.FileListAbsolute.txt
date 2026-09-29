@@ -107,3 +107,4 @@ C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\obj\Debug\ne
 C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\obj\Debug\net8.0-windows\DesktopNotepadWallpaper.Tests.pdb
 C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\obj\Debug\net8.0-windows\DesktopNotepadWallpaper.Tests.genruntimeconfig.cache
 C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\obj\Debug\net8.0-windows\ref\DesktopNotepadWallpaper.Tests.dll
+C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\obj\Debug\net8.0-windows\DesktopNotepadWallpaper.Tests.sourcelink.json

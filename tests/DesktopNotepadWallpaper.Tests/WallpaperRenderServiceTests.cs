@@ -141,4 +141,53 @@ public sealed class WallpaperRenderServiceTests : IDisposable
 
         Assert.True(result.Succeeded, result.Error);
     }
+
+    [Fact]
+    public void Render_模糊图片_竖图高DPI_完整图片可见而非只显示局部()
+    {
+        var cacheDir = _temp.GetFile("Cache");
+        var service = new WallpaperRenderService(cacheDir);
+        var config = new AppConfig();
+        config.WallpaperBackground.Style = "ImageBlur";
+        config.WallpaperBackground.ImagePath = "bands.png";
+
+        // 竖图 100×300 @300DPI，上中下三段：红/绿/蓝
+        var sourcePath = _temp.GetFile("bands.png");
+        using (var source = new Image<Rgba32>(100, 300))
+        {
+            for (var y = 0; y < 300; y++)
+            {
+                for (var x = 0; x < 100; x++)
+                {
+                    source[x, y] = y < 100
+                        ? new Rgba32(255, 0, 0)
+                        : y < 200 ? new Rgba32(0, 180, 0) : new Rgba32(0, 0, 220);
+                }
+            }
+            source.Metadata.HorizontalResolution = 300;
+            source.Metadata.VerticalResolution = 300;
+            source.Metadata.ResolutionUnits = SixLabors.ImageSharp.Metadata.PixelResolutionUnit.PixelsPerInch;
+            source.Save(sourcePath);
+        }
+
+        (bool Succeeded, string? Error) result = (false, null);
+        StaHelper.Run(() => result = service.Render(SampleTasks(1), config));
+
+        Assert.True(result.Succeeded, result.Error);
+
+        using var output = Image.Load<Rgba32>(service.CacheFilePath);
+        var cx = output.Width / 2;
+        // contain 模式：竖图整图显示，三段颜色都应出现在屏幕中部竖线上
+        // （深色遮罩后颜色约为原值的 56.9%）
+        void AssertBand(int y, string name, Func<Rgba32, bool> predicate)
+        {
+            var pixel = output[cx, y];
+            Assert.True(predicate(pixel),
+                $"{name} 色带应可见于 (x={cx}, y={y})，实际像素 R={pixel.R} G={pixel.G} B={pixel.B}");
+        }
+
+        AssertBand((int)(output.Height * 0.20), "红", p => p.R > 110 && p.G < 70 && p.B < 70);
+        AssertBand((int)(output.Height * 0.50), "绿", p => p.G > 90 && p.R < 70 && p.B < 70);
+        AssertBand((int)(output.Height * 0.80), "蓝", p => p.B > 110 && p.R < 70 && p.G < 70);
+    }
 }

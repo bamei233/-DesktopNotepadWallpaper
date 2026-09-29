@@ -32,6 +32,6 @@ public sealed class BackgroundStyleConfig
 public sealed class FontStyleConfig
 {
     public string Family { get; set; } = "Microsoft YaHei UI";
-    public double BaseSize { get; set; } = 22;
+    public double BaseSize { get; set; } = 24;
     public string Color { get; set; } = "#FFFFFF";
 }

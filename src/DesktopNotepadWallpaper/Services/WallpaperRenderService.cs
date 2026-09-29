@@ -91,9 +91,19 @@ public sealed class WallpaperRenderService : INotepadRenderer
                 var image = LoadImage(ResolveDataPath(bg.ImagePath));
                 if (image != null)
                 {
-                    var blurred = CreateBlurredCover(image, w, h, bg.BlurRadius);
+                    // 归一化到 96 DPI，保证像素与绘制坐标一一对应
+                    var normalized = NormalizeDpi(image);
+
+                    // 底层：模糊版本铺满全屏（cover）
+                    var blurred = CreateBlurredCover(normalized, w, h, bg.BlurRadius);
                     var cover = CoverRect(blurred.PixelWidth, blurred.PixelHeight, w, h);
                     dc.DrawImage(blurred, cover);
+
+                    // 上层：完整图片居中显示（contain），两侧露出模糊底
+                    var contain = ContainRect(normalized.PixelWidth, normalized.PixelHeight, w, h);
+                    dc.DrawImage(normalized, contain);
+
+                    // 加深遮罩，保证文字可读
                     dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(110, 0, 0, 0)),
                         null, new Rect(0, 0, w, h));
                 }
@@ -110,7 +120,7 @@ public sealed class WallpaperRenderService : INotepadRenderer
     }
 
     // ---- 内容超出一屏时逐级减小字号，直到放下或到内部下限 ----
-    private static readonly double MinFontSizeDips = 12;
+    private static readonly double MinFontSizeDips = 14;
 
     private double FindFittingFontSize(IReadOnlyList<TaskItem> tasks, AppConfig config,
         double contentW, double contentH, double scale)
@@ -304,14 +314,48 @@ public sealed class WallpaperRenderService : INotepadRenderer
         return new Rect((targetW - w) / 2, (targetH - h) / 2, w, h);
     }
 
+    private static Rect ContainRect(double imgW, double imgH, double targetW, double targetH)
+    {
+        var s = Math.Min(targetW / imgW, targetH / imgH);
+        var w = imgW * s;
+        var h = imgH * s;
+        return new Rect((targetW - w) / 2, (targetH - h) / 2, w, h);
+    }
+
+    /// <summary>把图片重绘为 96 DPI 位图，消除 DPI 元数据导致的尺寸错位。</summary>
+    private static BitmapSource NormalizeDpi(BitmapSource source)
+    {
+        var w = Math.Max(1, source.PixelWidth);
+        var h = Math.Max(1, source.PixelHeight);
+        var visual = new DrawingVisual();
+        using (var dc = visual.RenderOpen())
+        {
+            dc.DrawImage(source, new Rect(0, 0, w, h));
+        }
+        var rtb = new RenderTargetBitmap(w, h, 96, 96, PixelFormats.Pbgra32);
+        rtb.Render(visual);
+        rtb.Freeze();
+        return rtb;
+    }
+
     /// <summary>缩小再放大的近似模糊：不依赖 GPU Effect，RenderTargetBitmap 渲染结果稳定。</summary>
     private static BitmapSource CreateBlurredCover(BitmapSource source, double targetW, double targetH, double radius)
     {
         var down = Math.Clamp(4.0 / Math.Max(radius, 1.0), 0.03, 0.25);
         var smallW = Math.Max(8, (int)(source.PixelWidth * down));
         var smallH = Math.Max(8, (int)(source.PixelHeight * down));
-        var small = new TransformedBitmap(source,
-            new ScaleTransform((double)smallW / source.PixelWidth, (double)smallH / source.PixelHeight));
+
+        // 先缩小（同时完成模糊基础）
+        var smallVisual = new DrawingVisual();
+        using (var dc = smallVisual.RenderOpen())
+        {
+            dc.DrawImage(source, new Rect(0, 0, smallW, smallH));
+        }
+        var small = new RenderTargetBitmap(smallW, smallH, 96, 96, PixelFormats.Pbgra32);
+        small.Render(smallVisual);
+        small.Freeze();
+
+        // 再放大到铺满目标尺寸
         var upScale = Math.Max(targetW / smallW, targetH / smallH);
         var blurred = new TransformedBitmap(small, new ScaleTransform(upScale, upScale));
         blurred.Freeze();

@@ -2,6 +2,7 @@
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
            xmlns:hc="https://handyorg.github.io/handycontrol"
+           xmlns:controls="clr-namespace:DesktopNotepadWallpaper.Controls"
            xmlns:conv="clr-namespace:DesktopNotepadWallpaper.Converters"
            Title="设置"
            Width="780" Height="580"
@@ -25,11 +26,6 @@
         <Style x:Key="SettingLabel" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="13" />
-        </Style>
-
-        <Style x:Key="ColorBox" TargetType="hc:ColorPicker">
-            <Setter Property="Width" Value="150" />
-            <Setter Property="Height" Value="32" />
         </Style>
 
         <!-- 缩略图右上角删除按钮 -->
@@ -134,17 +130,17 @@
 
                     <DockPanel Style="{StaticResource SettingRow}">
                         <TextBlock Text="纯色颜色" Style="{StaticResource SettingLabel}" DockPanel.Dock="Left" Width="120" />
-                        <hc:ColorPicker SelectedBrush="{Binding SolidColorBrush, Mode=TwoWay}" Style="{StaticResource ColorBox}" />
+                        <controls:ColorSwatchPicker SelectedBrush="{Binding SolidColorBrush, Mode=TwoWay}" />
                     </DockPanel>
 
                     <DockPanel Style="{StaticResource SettingRow}">
                         <TextBlock Text="渐变起始色" Style="{StaticResource SettingLabel}" DockPanel.Dock="Left" Width="120" />
-                        <hc:ColorPicker SelectedBrush="{Binding GradientStartBrush, Mode=TwoWay}" Style="{StaticResource ColorBox}" />
+                        <controls:ColorSwatchPicker SelectedBrush="{Binding GradientStartBrush, Mode=TwoWay}" />
                     </DockPanel>
 
                     <DockPanel Style="{StaticResource SettingRow}">
                         <TextBlock Text="渐变结束色" Style="{StaticResource SettingLabel}" DockPanel.Dock="Left" Width="120" />
-                        <hc:ColorPicker SelectedBrush="{Binding GradientEndBrush, Mode=TwoWay}" Style="{StaticResource ColorBox}" />
+                        <controls:ColorSwatchPicker SelectedBrush="{Binding GradientEndBrush, Mode=TwoWay}" />
                     </DockPanel>
 
                     <DockPanel Style="{StaticResource SettingRow}">
@@ -210,14 +206,14 @@
 
                     <DockPanel Style="{StaticResource SettingRow}">
                         <TextBlock Text="字号" Style="{StaticResource SettingLabel}" DockPanel.Dock="Left" Width="120" />
-                        <Slider Width="220" Minimum="14" Maximum="42"
+                        <Slider Width="220" Minimum="16" Maximum="44"
                                 IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding BaseFontSize}" />
                     </DockPanel>
 
                     <DockPanel Style="{StaticResource SettingRow}">
                         <TextBlock Text="字体颜色" Style="{StaticResource SettingLabel}" DockPanel.Dock="Left" Width="120" />
-                        <hc:ColorPicker SelectedBrush="{Binding FontColorBrush, Mode=TwoWay}" Style="{StaticResource ColorBox}" />
+                        <controls:ColorSwatchPicker SelectedBrush="{Binding FontColorBrush, Mode=TwoWay}" />
                     </DockPanel>
 
                     <TextBlock Text="内容超过一屏时字号会自动缩小"

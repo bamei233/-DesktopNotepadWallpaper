@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -5,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using DesktopNotepadWallpaper.Converters;
 using DesktopNotepadWallpaper.Models;
 using DesktopNotepadWallpaper.Services;
 using DesktopNotepadWallpaper.Tests.Fakes;
@@ -16,14 +18,20 @@ using Xunit;
 namespace DesktopNotepadWallpaper.Tests;
 
 /// <summary>
-/// 主窗口 UI 集成测试（真实 XAML + 模拟点击）。
+/// 主窗口 UI 集成测试（真实 XAML + 模拟交互）。
 /// 与热键测试同集合，避免并行注册全局热键互相冲突。
 /// </summary>
 [Collection("UI")]
-public sealed class HighlightSwatchUiTests : IDisposable
+public sealed class MainWindowUiTests : IDisposable
 {
     private readonly TempDir _temp = new();
+    private readonly StaUiFixture _sta;
     private Window? _window;
+
+    public MainWindowUiTests(StaUiFixture sta)
+    {
+        _sta = sta;
+    }
 
     public void Dispose()
     {
@@ -49,7 +57,24 @@ public sealed class HighlightSwatchUiTests : IDisposable
         Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Background, new Action(() => { }));
     }
 
-    private MainWindow CreateWindow(out MainViewModel vm, out TaskItem task)
+    private static void EnsureApplicationResources()
+    {
+        var app = Application.Current ?? new Application();
+        app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+        if (app.Resources.MergedDictionaries.Count == 0)
+        {
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml")
+            });
+            app.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
+            });
+        }
+    }
+
+    private MainWindow CreateWindow(out TaskItem task)
     {
         var data = new DataService(_temp.Path);
         // 关闭最小化到托盘，测试结束时才能正常关闭窗口
@@ -60,7 +85,7 @@ public sealed class HighlightSwatchUiTests : IDisposable
         var tasks = new List<TaskItem>();
         var rotator = new WallpaperRotatorService(
             config, gallery, new FakeRenderer(), () => tasks, new FakeWallpaperSetter());
-        vm = new MainViewModel(data, render, rotator);
+        var vm = new MainViewModel(data, render, rotator);
         var window = new MainWindow { DataContext = vm };
         vm.AddTaskCommand.Execute(null);
         task = vm.Tasks[0];
@@ -87,23 +112,11 @@ public sealed class HighlightSwatchUiTests : IDisposable
     [Fact]
     public void 点击色板_任务高亮色被设置_圆点与行背景同步变色()
     {
-        StaHelper.Run(() =>
+        _sta.Run(() =>
         {
-            // 准备 WPF 应用资源（HandyControl 主题，MainWindow 样式依赖）
-            var app = Application.Current ?? new Application();
-            if (app.Resources.MergedDictionaries.Count == 0)
-            {
-                app.Resources.MergedDictionaries.Add(new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml")
-                });
-                app.Resources.MergedDictionaries.Add(new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
-                });
-            }
+            EnsureApplicationResources();
 
-            var window = CreateWindow(out _, out var task);
+            var window = CreateWindow(out var task);
             _window = window;
             window.Show();
             Pump();
@@ -140,8 +153,8 @@ public sealed class HighlightSwatchUiTests : IDisposable
 
             // 找到 "Blue" 色块并模拟点击
             var swatches = (ItemsControl)((Border)popup.Child).Child;
-            var blueEntry = ((System.Collections.IEnumerable)swatches.ItemsSource)
-                .Cast<DesktopNotepadWallpaper.Converters.HighlightSwatchEntry>()
+            var blueEntry = ((IEnumerable)swatches.ItemsSource)
+                .Cast<HighlightSwatchEntry>()
                 .First(e => e.Key == "Blue");
             Pump();
             var swatchContainer = (FrameworkElement)swatches.ItemContainerGenerator.ContainerFromItem(blueEntry)!;
@@ -167,6 +180,74 @@ public sealed class HighlightSwatchUiTests : IDisposable
             Assert.NotNull(rowBrush);
             Assert.Equal(40, rowBrush!.Color.A);
             Assert.Equal(HighlightPalette.GetColor("Blue").R, rowBrush.Color.R);
+
+            window.Hide();
+        });
+    }
+
+    [Fact]
+    public void 标签编辑器_可输入空格与逗号_失焦后解析为标签()
+    {
+        _sta.Run(() =>
+        {
+            EnsureApplicationResources();
+
+            var window = CreateWindow(out var task);
+            _window = window;
+            window.Show();
+            Pump();
+            window.UpdateLayout();
+
+            var list = (ItemsControl)window.FindName("TaskList");
+            var container = (FrameworkElement)list.ItemContainerGenerator.ContainerFromItem(task)!;
+            Assert.NotNull(container);
+
+            // 找到标签开关（弹窗子内容为 StackPanel 的才是标签弹窗）
+            ToggleButton? tagToggle = null;
+            Grid? grid = null;
+            foreach (var candidate in FindVisuals<ToggleButton>(container))
+            {
+                if (VisualTreeHelper.GetParent(candidate) is Grid g &&
+                    g.Children.OfType<Popup>().FirstOrDefault() is { } p &&
+                    p.Child is Border b && b.Child is StackPanel)
+                {
+                    tagToggle = candidate;
+                    grid = g;
+                    break;
+                }
+            }
+            Assert.NotNull(tagToggle);
+            Assert.NotNull(grid);
+
+            tagToggle!.IsChecked = true;
+            Pump();
+            window.UpdateLayout();
+            Pump();
+
+            var popup = grid!.Children.OfType<Popup>().First();
+            Assert.True(popup.IsOpen, "标签弹窗应已打开");
+            var panel = (StackPanel)((Border)popup.Child).Child;
+            var textBox = panel.Children.OfType<TextBox>().First();
+            var doneButton = panel.Children.OfType<Button>().Last();
+
+            // 输入含空格和逗号的文本（不应被实时回写破坏）
+            textBox.Focus();
+            Pump();
+            textBox.Text = "开发, 测试 重点";
+            Assert.Equal("开发, 测试 重点", textBox.Text);
+
+            // 焦点移走 → LostFocus 触发绑定写回（与真实点击「完成」等价）
+            var moved = textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            Pump();
+
+            Assert.True(moved, "焦点应成功移出输入框");
+            Assert.Equal(new[] { "开发", "测试", "重点" }, task.Tags);
+            Assert.Equal("开发 测试 重点", task.TagText);
+
+            // 点击「完成」关闭弹窗
+            doneButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Pump();
+            Assert.False(popup.IsOpen, "点击完成后弹窗应关闭");
 
             window.Hide();
         });

@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\App.xaml
-2302661862
+3-1810693441
 
-29663269179
+30-680569385
 202938536104
-Views\MainWindow.xaml;Views\SettingsWindow.xaml;
+Controls\ColorSwatchPicker.xaml;Views\MainWindow.xaml;Views\SettingsWindow.xaml;
 
 False
 

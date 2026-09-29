@@ -155,4 +155,66 @@ public sealed class MainViewModelTests : IDisposable
         Assert.Contains("共 2 个事件", vm.StatusText);
         Assert.Contains("1 个未完成", vm.StatusText);
     }
+
+    [Fact]
+    public void SelectAll_两次调用_先全选再全不选()
+    {
+        var vm = CreateViewModel();
+        vm.AddTaskCommand.Execute(null);
+        vm.AddTaskCommand.Execute(null);
+        vm.AddTaskCommand.Execute(null);
+
+        vm.SelectAllCommand.Execute(null);
+
+        Assert.All(vm.Tasks, t => Assert.True(t.IsSelected));
+        Assert.True(vm.HasSelection);
+
+        vm.SelectAllCommand.Execute(null);
+
+        Assert.All(vm.Tasks, t => Assert.False(t.IsSelected));
+        Assert.False(vm.HasSelection);
+    }
+
+    [Fact]
+    public void DeleteSelected_只删除勾选的事件()
+    {
+        var vm = CreateViewModel();
+        vm.AddTaskCommand.Execute(null);
+        vm.AddTaskCommand.Execute(null);
+        vm.AddTaskCommand.Execute(null);
+        vm.Tasks[0].IsSelected = true;
+        vm.Tasks[2].IsSelected = true;
+        var survivor = vm.Tasks[1];
+
+        vm.DeleteSelectedCommand.Execute(null);
+
+        Assert.Single(vm.Tasks);
+        Assert.Same(survivor, vm.Tasks[0]);
+        Assert.False(vm.HasSelection);
+    }
+
+    [Fact]
+    public void DeleteSelected_没有勾选_不删除任何事件()
+    {
+        var vm = CreateViewModel();
+        vm.AddTaskCommand.Execute(null);
+
+        vm.DeleteSelectedCommand.Execute(null);
+
+        Assert.Single(vm.Tasks);
+    }
+
+    [Fact]
+    public void HasSelection_随勾选状态实时更新()
+    {
+        var vm = CreateViewModel();
+        vm.AddTaskCommand.Execute(null);
+        Assert.False(vm.HasSelection);
+
+        vm.Tasks[0].IsSelected = true;
+        Assert.True(vm.HasSelection);
+
+        vm.Tasks[0].IsSelected = false;
+        Assert.False(vm.HasSelection);
+    }
 }
