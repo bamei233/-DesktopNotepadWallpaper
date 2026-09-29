@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "BqmfBN+fimk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\1\\Desktop\\记事壁纸\\src\\DesktopNotepadWallpaper\\DesktopNotepadWallpaper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\1\\.nuget\\packages\\documentformat.openxml\\3.1.1\\documentformat.openxml.3.1.1.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\documentformat.openxml.framework\\3.1.1\\documentformat.openxml.framework.3.1.1.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\handycontrol\\3.5.1\\handycontrol.3.5.1.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.31\\microsoft.net.illink.tasks.8.0.31.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\sixlabors.imagesharp\\3.1.5\\sixlabors.imagesharp.3.1.5.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.31\\microsoft.netcore.app.runtime.win-x64.8.0.31.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.31\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.31.nupkg.sha512",
+    "C:\\Users\\1\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.31\\microsoft.aspnetcore.app.runtime.win-x64.8.0.31.nupkg.sha512"
+  ],
+  "logs": []
+}

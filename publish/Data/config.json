@@ -1,0 +1,24 @@
+{
+  "AutoStart": true,
+  "MinimizeToTray": true,
+  "GalleryImages": [],
+  "Padding": {
+    "Left": 240,
+    "Top": 130,
+    "Right": 56,
+    "Bottom": 56
+  },
+  "WallpaperBackground": {
+    "Style": "Solid",
+    "SolidColor": "#2E3440",
+    "GradientStart": "#355C7D",
+    "GradientEnd": "#6C5B7B",
+    "ImagePath": "",
+    "BlurRadius": 30
+  },
+  "Font": {
+    "Family": "Microsoft YaHei UI",
+    "BaseSize": 41,
+    "Color": "#FFFFFF"
+  }
+}

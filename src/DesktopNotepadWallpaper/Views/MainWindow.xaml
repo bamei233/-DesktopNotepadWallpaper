@@ -1,0 +1,445 @@
+<hc:Window x:Class="DesktopNotepadWallpaper.Views.MainWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:hc="https://handyorg.github.io/handycontrol"
+           xmlns:models="clr-namespace:DesktopNotepadWallpaper.Models"
+           xmlns:conv="clr-namespace:DesktopNotepadWallpaper.Converters"
+           Title="记事壁纸 DesktopNotepadWallpaper"
+           Width="960" Height="680"
+           MinWidth="780" MinHeight="520"
+           WindowStartupLocation="CenterScreen">
+
+    <hc:Window.Resources>
+        <conv:HighlightKeyBrushConverter x:Key="HighlightKeyBrushConverter" />
+        <conv:ColorBrushConverter x:Key="ColorBrushConverter" />
+        <conv:RowHighlightConverter x:Key="RowHighlightConverter" />
+        <conv:SwatchPaletteConverter x:Key="SwatchPaletteConverter" />
+
+        <!-- 无边框无下划线的输入框模板 -->
+        <Style x:Key="BareTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="CaretBrush" Value="{DynamicResource PrimaryBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ToolbarButton" TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="MinWidth" Value="92" />
+            <Setter Property="Height" Value="34" />
+        </Style>
+
+        <Style x:Key="ToolbarButtonPrimary" TargetType="Button" BasedOn="{StaticResource ButtonPrimary}">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="MinWidth" Value="92" />
+            <Setter Property="Height" Value="34" />
+        </Style>
+
+        <Style x:Key="MetaButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="#9AA7B5" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MetaToggleButton" TargetType="ToggleButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="#9AA7B5" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="#9AA7B5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#33E81123" />
+                    <Setter Property="Foreground" Value="#E81123" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- 托盘菜单本地样式（HandyControl 3.5.1 的 MenuItem 隐式样式解析会崩溃，用显式样式绕开） -->
+        <Style x:Key="TrayContextMenuStyle" TargetType="ContextMenu">
+            <Setter Property="Background" Value="#FF2A2E35" />
+            <Setter Property="BorderBrush" Value="#FF3A4048" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HasDropShadow" Value="True" />
+        </Style>
+        <Style x:Key="TrayMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="4">
+                            <ContentPresenter ContentSource="Header"
+                                              RecognizesAccessKey="True"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FF6B7785" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TraySeparatorStyle" TargetType="Separator">
+            <Setter Property="Background" Value="#FF3A4048" />
+            <Setter Property="Height" Value="1" />
+            <Setter Property="Margin" Value="10,5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Rectangle Fill="{TemplateBinding Background}"
+                                   Height="{TemplateBinding Height}"
+                                   Margin="{TemplateBinding Margin}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </hc:Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部工具栏 -->
+        <Border Grid.Row="0" Background="{DynamicResource RegionBrush}"
+                BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderBrush}"
+                Padding="16,10">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Button Content="添加事件" Style="{StaticResource ToolbarButtonPrimary}"
+                            Command="{Binding AddTaskCommand}" />
+                    <Button Content="导入 Word" Style="{StaticResource ToolbarButton}"
+                            Click="OnImportWordClick" />
+                    <Button Content="图库" Style="{StaticResource ToolbarButton}"
+                            Click="OnGalleryClick" ToolTip="导入/管理图库图片（最多 20 张）" />
+                    <Button Content="保存" Style="{StaticResource ToolbarButtonPrimary}"
+                            Command="{Binding SaveCommand}" />
+                    <Button Content="设置" Style="{StaticResource ToolbarButton}"
+                            Click="OnSettingsClick" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- 任务列表 -->
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="TaskScroll"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl x:Name="TaskList" ItemsSource="{Binding Tasks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="28,8,14,8"
+                                    BorderThickness="0,0,0,1"
+                                    BorderBrush="{DynamicResource BorderBrush}"
+                                    Background="{Binding HighlightColor, Converter={StaticResource RowHighlightConverter}}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" MaxWidth="560" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 拖拽把手 -->
+                                    <TextBlock Grid.Column="0" Text="☰"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,10,0"
+                                               Foreground="#6B7785"
+                                               FontSize="14"
+                                               Cursor="SizeAll"
+                                               ToolTip="拖拽调整顺序"
+                                               PreviewMouseLeftButtonDown="OnGripMouseDown"
+                                               PreviewMouseMove="OnGripMouseMove"
+                                               PreviewMouseLeftButtonUp="OnGripMouseUp" />
+
+                                    <!-- 复选框 -->
+                                    <CheckBox Grid.Column="1"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"
+                                              IsChecked="{Binding IsCompleted}" />
+
+                                    <!-- 描述（左）+ 标签 -->
+                                    <StackPanel Grid.Column="2" Margin="0,0,12,0" VerticalAlignment="Center">
+                                        <Grid>
+                                            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                                     AcceptsReturn="False" TextWrapping="Wrap"
+                                                     MinHeight="0" FontSize="16">
+                                                <TextBox.Style>
+                                                    <Style TargetType="TextBox" BasedOn="{StaticResource BareTextBox}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsCompleted}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
+                                            <TextBlock Text="{Binding Description}"
+                                                       TextWrapping="Wrap"
+                                                       TextDecorations="Strikethrough"
+                                                       Foreground="#7A8694"
+                                                       FontSize="16"
+                                                       IsHitTestVisible="False">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsCompleted}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                        <Grid HorizontalAlignment="Left" Margin="0,4,0,0">
+                                            <ToggleButton x:Name="TagToggle"
+                                                          Style="{StaticResource MetaToggleButton}"
+                                                          ToolTip="编辑标签">
+                                                <TextBlock FontSize="12">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Text" Value="{Binding TagText, StringFormat=# {0}}" />
+                                                            <Setter Property="Foreground" Value="#9AA7B5" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding TagText}" Value="">
+                                                                    <Setter Property="Text" Value="＋ 标签" />
+                                                                    <Setter Property="Foreground" Value="#6B7785" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </ToggleButton>
+                                            <Popup PlacementTarget="{Binding ElementName=TagToggle}"
+                                                   Placement="Bottom"
+                                                   StaysOpen="False"
+                                                   AllowsTransparency="True"
+                                                   PopupAnimation="Fade"
+                                                   IsOpen="{Binding IsChecked, ElementName=TagToggle, Mode=TwoWay}">
+                                                <Border Background="{DynamicResource RegionBrush}"
+                                                        BorderBrush="{DynamicResource BorderBrush}"
+                                                        BorderThickness="1" CornerRadius="8" Padding="10">
+                                                    <StackPanel>
+                                                        <TextBlock Text="标签（多个用空格或逗号分隔）"
+                                                                   FontSize="12" Foreground="#9AA7B5" Margin="0,0,0,6" />
+                                                        <TextBox Width="240" FontSize="13"
+                                                                 Text="{Binding TagText, UpdateSourceTrigger=PropertyChanged}"
+                                                                 hc:InfoElement.Placeholder="输入标签" />
+                                                        <Button Content="完成" Height="30" MinWidth="72"
+                                                                Margin="0,10,0,0" HorizontalAlignment="Right"
+                                                                Style="{StaticResource ToolbarButtonPrimary}"
+                                                                Click="OnTagDoneClick" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </Popup>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <!-- 截止时间（事件右侧） -->
+                                    <hc:DateTimePicker Grid.Column="3"
+                                                       Width="150"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="12"
+                                                       DateTimeFormat="yyyy-MM-dd HH:mm"
+                                                       SelectedDateTime="{Binding Deadline, Mode=TwoWay}"
+                                                       hc:InfoElement.Placeholder="截止时间"
+                                                       ToolTip="点击选择截止日期和时间" />
+
+                                    <!-- 高亮颜色 -->
+                                    <Grid Grid.Column="4" VerticalAlignment="Center" Margin="12,0,10,0">
+                                        <ToggleButton x:Name="SwatchToggle"
+                                                      Width="22" Height="22"
+                                                      Cursor="Hand"
+                                                      ToolTip="高亮颜色"
+                                                      IsChecked="{Binding IsPaletteOpen, Mode=TwoWay}">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Grid>
+                                                        <Ellipse x:Name="Dot"
+                                                                 Fill="{Binding HighlightColor, Converter={StaticResource HighlightKeyBrushConverter}}"
+                                                                 Stroke="{DynamicResource BorderBrush}"
+                                                                 StrokeThickness="1.5" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Dot" Property="Stroke" Value="{DynamicResource PrimaryBrush}" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                        <Popup Placement="Bottom" PlacementTarget="{Binding ElementName=SwatchToggle}"
+                                               StaysOpen="False"
+                                               AllowsTransparency="True"
+                                               PopupAnimation="Fade"
+                                               IsOpen="{Binding IsPaletteOpen, Mode=TwoWay}">
+                                            <Border Background="{DynamicResource RegionBrush}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="8" Padding="8">
+                                                <ItemsControl ItemsSource="{Binding Converter={StaticResource SwatchPaletteConverter}}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <UniformGrid Columns="4" />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Button Tag="{Binding}"
+                                                                    ToolTip="{Binding Display}"
+                                                                    Click="OnSwatchClick"
+                                                                    Background="Transparent"
+                                                                    BorderThickness="0"
+                                                                    Margin="3" Padding="4"
+                                                                    Cursor="Hand">
+                                                                <Ellipse Width="18" Height="18"
+                                                                         Fill="{Binding Color, Converter={StaticResource ColorBrushConverter}}"
+                                                                         Stroke="{DynamicResource BorderBrush}"
+                                                                         StrokeThickness="1" />
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </Border>
+                                        </Popup>
+                                    </Grid>
+
+                                    <!-- X 删除 -->
+                                    <Button Grid.Column="5" Content="✕"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource DeleteButton}"
+                                            ToolTip="删除事件"
+                                            Command="{Binding DataContext.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type hc:Window}}}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- 空状态提示 -->
+            <TextBlock Text="暂无事件，点击「添加事件」开始记录"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="#6B7785" FontSize="14"
+                       IsHitTestVisible="False">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Tasks.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Grid Grid.Row="2" Background="{DynamicResource RegionBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="16,8" FontSize="12"
+                       Text="{Binding StatusText}" />
+            <TextBlock Grid.Column="1" Margin="0,8,16,8" FontSize="12"
+                       Foreground="#6B7785"
+                       Text="Ctrl + Shift + Alt + ←/→ 切换壁纸 · ↑ 回到记事本" />
+        </Grid>
+
+        <!-- 托盘图标 -->
+        <hc:NotifyIcon x:Name="TrayIcon"
+                       Text="记事壁纸"
+                       Visibility="Visible"
+                       MouseDoubleClick="OnTrayDoubleClick">
+            <hc:NotifyIcon.ContextContent>
+                <ContextMenu Style="{StaticResource TrayContextMenuStyle}">
+                    <MenuItem Header="打开主界面" Style="{StaticResource TrayMenuItemStyle}" Click="OnTrayOpenClick" />
+                    <Separator Style="{StaticResource TraySeparatorStyle}" />
+                    <MenuItem Header="退出" Style="{StaticResource TrayMenuItemStyle}" Click="OnTrayExitClick" />
+                </ContextMenu>
+            </hc:NotifyIcon.ContextContent>
+        </hc:NotifyIcon>
+    </Grid>
+</hc:Window>
