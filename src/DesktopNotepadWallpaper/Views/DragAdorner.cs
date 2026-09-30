@@ -46,12 +46,12 @@ internal sealed class DragAdorner : Adorner
         var rect = new Rect(_position, _size);
         drawingContext.PushOpacity(BrushOpacity);
         drawingContext.DrawRectangle(_brush,
-            new Pen(new SolidColorBrush(Color.FromArgb(110, 255, 255, 255)), 1), rect);
+            new Pen(new SolidColorBrush(Color.FromArgb(130, 91, 91, 214)), 1), rect);
         drawingContext.Pop();
 
         if (_insertionY is { } y)
         {
-            var pen = new Pen(new SolidColorBrush(Color.FromRgb(53, 92, 125)), 3)
+            var pen = new Pen(new SolidColorBrush(Color.FromRgb(91, 91, 214)), 3)
             {
                 StartLineCap = PenLineCap.Round,
                 EndLineCap = PenLineCap.Round

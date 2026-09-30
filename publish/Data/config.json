@@ -1,24 +1,26 @@
 {
   "AutoStart": true,
   "MinimizeToTray": true,
-  "GalleryImages": [],
+  "GalleryImages": [
+    "025a925fa52a4fd79da7943d83630edd.png"
+  ],
   "Padding": {
-    "Left": 56,
-    "Top": 56,
+    "Left": 544,
+    "Top": 98,
     "Right": 56,
     "Bottom": 56
   },
   "WallpaperBackground": {
-    "Style": "Gradient",
-    "SolidColor": "#FF000000",
-    "GradientStart": "#FFFFEB3B",
-    "GradientEnd": "#FF9C27B0",
-    "ImagePath": "",
-    "BlurRadius": 30
+    "Style": "Solid",
+    "SolidColor": "#2E3440",
+    "GradientStart": "#FF4CAF50",
+    "GradientEnd": "#FF8BC34A",
+    "ImagePath": "Background\\bg_df7cbc6c31164b12b8317d67cade1f40.png",
+    "BlurRadius": 31
   },
   "Font": {
     "Family": "Microsoft YaHei UI",
-    "BaseSize": 24,
-    "Color": "#FFFFFF"
+    "BaseSize": 44,
+    "Color": "#FFFFFFFF"
   }
 }

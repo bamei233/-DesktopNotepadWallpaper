@@ -468,13 +468,11 @@ C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\bin\Release\net8.0-w
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper.csproj.AssemblyReference.cache
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\App.baml
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Views\MainWindow.g.cs
-C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Views\SettingsWindow.g.cs
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\App.g.cs
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\GeneratedInternalTypeHelper.g.cs
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper_MarkupCompile.cache
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper_MarkupCompile.lref
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Views\MainWindow.baml
-C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Views\SettingsWindow.baml
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper.g.resources
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\DesktopNotepadWallpaper.AssemblyInfoInputs.cache
@@ -487,3 +485,4 @@ C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-w
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\ref\DesktopNotepadWallpaper.dll
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Controls\ColorSwatchPicker.baml
 C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Controls\ColorSwatchPicker.g.cs
+C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\obj\Release\net8.0-windows\win-x64\Resources\Palette.baml

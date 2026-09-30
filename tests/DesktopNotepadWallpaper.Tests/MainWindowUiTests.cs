@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -59,23 +60,31 @@ public sealed class MainWindowUiTests : IDisposable
 
     private static void EnsureApplicationResources()
     {
-        var app = Application.Current ?? new Application();
-        app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-        if (app.Resources.MergedDictionaries.Count == 0)
+        if (Application.Current != null)
         {
-            app.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml")
-            });
-            app.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
-            });
+            return;
         }
+        // 使用基础 Application + 手工合并主题与调色板（不能实例化真实 App：
+        // 其 OnStartup 会在 Dispatcher 泵送时执行，创建真实主窗口并注册全局热键）
+        var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml")
+        });
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
+        });
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/DesktopNotepadWallpaper;component/Resources/Palette.xaml")
+        });
     }
 
     private MainWindow CreateWindow(out TaskItem task)
     {
+        // 测试窗口不注册全局热键与托盘图标，避免与系统集成测试冲突
+        MainWindow.DisableSystemIntegrations = true;
         var data = new DataService(_temp.Path);
         // 关闭最小化到托盘，测试结束时才能正常关闭窗口
         data.SaveConfig(new AppConfig { MinimizeToTray = false });
@@ -186,6 +195,124 @@ public sealed class MainWindowUiTests : IDisposable
     }
 
     [Fact]
+    public void 导航切换_图库页与设置页按预期显示隐藏()
+    {
+        _sta.Run(() =>
+        {
+            EnsureApplicationResources();
+
+            var window = CreateWindow(out _);
+            _window = window;
+            window.Show();
+            Pump();
+            window.UpdateLayout();
+
+            var taskPage = (Grid)window.FindName("TaskPage");
+            var galleryPage = (Grid)window.FindName("GalleryPage");
+            var settingsPage = (Grid)window.FindName("SettingsPage");
+            Assert.Equal(Visibility.Visible, taskPage.Visibility);
+            Assert.Equal(Visibility.Collapsed, galleryPage.Visibility);
+            Assert.Equal(Visibility.Collapsed, settingsPage.Visibility);
+
+            // 切到图库页
+            var navGallery = (RadioButton)window.FindName("NavGallery");
+            navGallery.IsChecked = true;
+            Pump();
+            Assert.Equal(Visibility.Collapsed, taskPage.Visibility);
+            Assert.Equal(Visibility.Visible, galleryPage.Visibility);
+            Assert.NotNull(window.FindName("GalleryList"));
+
+            // 切到设置页，验证手风琴
+            var navSettings = (RadioButton)window.FindName("NavSettings");
+            navSettings.IsChecked = true;
+            Pump();
+            Assert.Equal(Visibility.Visible, settingsPage.Visibility);
+            Assert.Equal(Visibility.Collapsed, galleryPage.Visibility);
+
+            var bgHeader = (Button)window.FindName("BackgroundHeader");
+            var bgContent = (Grid)window.FindName("BackgroundContent");
+            Assert.NotNull(bgHeader);
+            Assert.NotNull(bgContent);
+            Assert.Equal(Visibility.Collapsed, bgContent.Visibility);
+
+            // 手风琴标题文字必须可见（回归：标题不渲染问题）
+            var titleTexts = FindVisuals<TextBlock>(bgHeader)
+                .Where(t => t.Text == "背景样式")
+                .ToList();
+            Assert.NotEmpty(titleTexts);
+            var title = titleTexts[0];
+            window.UpdateLayout();
+            Pump();
+            Assert.True(title.ActualWidth > 0 && title.ActualHeight > 0,
+                "手风琴标题必须实际渲染出可见尺寸");
+
+            // 点击标题必须展开（AutomationPeer.Invoke 等价真实点击，会执行 Click 处理器）
+            ((System.Windows.Automation.Provider.IInvokeProvider)
+                new ButtonAutomationPeer(bgHeader)).Invoke();
+            Pump();
+            Assert.Equal(Visibility.Visible, bgContent.Visibility);
+            // 再点一次收起
+            ((System.Windows.Automation.Provider.IInvokeProvider)
+                new ButtonAutomationPeer(bgHeader)).Invoke();
+            Pump();
+            Assert.Equal(Visibility.Collapsed, bgContent.Visibility);
+
+            // 回到事件页
+            var navTask = (RadioButton)window.FindName("NavTask");
+            navTask.IsChecked = true;
+            Pump();
+            Assert.Equal(Visibility.Visible, taskPage.Visibility);
+
+            window.Hide();
+        });
+    }
+
+    [Fact]
+    public void 图库缩略图删除按钮_点击后移除图片()
+    {
+        _sta.Run(() =>
+        {
+            EnsureApplicationResources();
+
+            var window = CreateWindow(out _);
+            _window = window;
+            window.Show();
+            Pump();
+            window.UpdateLayout();
+
+            var navGallery = (RadioButton)window.FindName("NavGallery");
+            navGallery.IsChecked = true;
+            Pump();
+            window.UpdateLayout();
+            Pump();
+
+            var vm = (MainViewModel)window.DataContext;
+            var settings = vm.Settings;
+            settings.Gallery.Add(new GalleryItem("test_img.png",
+                System.IO.Path.Combine(_temp.Path, "test_img.png")));
+
+            var galleryList = (ListBox)window.FindName("GalleryList");
+            Pump();
+            window.UpdateLayout();
+            Pump();
+            var container = (FrameworkElement)galleryList.ItemContainerGenerator
+                .ContainerFromItem(settings.Gallery[0])!;
+            Assert.NotNull(container);
+
+            var deleteButton = FindVisuals<Button>(container).First();
+            Assert.NotNull(deleteButton.Command);
+            // Invoke 等价真实点击：会执行命令（RaiseEvent 不会触发命令执行）
+            ((System.Windows.Automation.Provider.IInvokeProvider)
+                new ButtonAutomationPeer(deleteButton)).Invoke();
+            Pump();
+
+            Assert.Empty(settings.Gallery);
+
+            window.Hide();
+        });
+    }
+
+    [Fact]
     public void 标签编辑器_可输入空格与逗号_失焦后解析为标签()
     {
         _sta.Run(() =>
@@ -253,3 +380,4 @@ public sealed class MainWindowUiTests : IDisposable
         });
     }
 }
+

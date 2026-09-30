@@ -93,6 +93,15 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
     public AppConfig Config => _config;
 
+    /// <summary>设置/图库页共享的视图模型（首次访问时创建）。</summary>
+    public SettingsViewModel Settings => CreateSettingsViewModel();
+
+    /// <summary>主窗口关闭时把设置页未落盘的修改写入磁盘。</summary>
+    public void FlushSettings()
+    {
+        _settings?.Flush();
+    }
+
     public SettingsViewModel CreateSettingsViewModel()
     {
         if (_settings == null)

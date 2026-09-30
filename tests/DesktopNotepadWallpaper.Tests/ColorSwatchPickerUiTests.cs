@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using DesktopNotepadWallpaper.Controls;
@@ -26,19 +27,23 @@ public sealed class ColorSwatchPickerUiTests
 
     private static void EnsureApplicationResources()
     {
-        var app = Application.Current ?? new Application();
-        app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-        if (app.Resources.MergedDictionaries.Count == 0)
+        if (Application.Current != null)
         {
-            app.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml")
-            });
-            app.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
-            });
+            return;
         }
+        var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml")
+        });
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
+        });
+        app.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/DesktopNotepadWallpaper;component/Resources/Palette.xaml")
+        });
     }
 
     [Fact]

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -225,6 +226,12 @@ public sealed class SettingsViewModel : INotifyPropertyChanged
     }
 
     public string BgImageName => Path.GetFileName(_config.WallpaperBackground.ImagePath);
+
+    /// <summary>左右内边距上限：主屏宽度的一半（拉满时内容居中）。</summary>
+    public double MaxHorizontalPadding => Math.Max(100, SystemParameters.PrimaryScreenWidth / 2);
+
+    /// <summary>上下内边距上限：主屏高度的一半。</summary>
+    public double MaxVerticalPadding => Math.Max(100, SystemParameters.PrimaryScreenHeight / 2);
 
     public ICommand PickBackgroundImageCommand => _pickBackgroundImageCommand;
 

@@ -34,4 +34,50 @@ internal static class NativeMethods
 
     [DllImport("user32.dll")]
     public static extern uint GetDpiForSystem();
+
+    // ---- 窗口背景材质（Win11 亚克力/云母） ----
+    public const int DWMWA_SYSTEMBACKDROP_TYPE = 38;
+    public const int DWMSBT_MAINWINDOW = 2;        // Mica
+    public const int DWMSBT_TRANSIENTWINDOW = 3;   // Acrylic
+
+    [DllImport("dwmapi.dll")]
+    public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+    // ---- 系统托盘 ----
+    public const int NIM_ADD = 0x00000000;
+    public const int NIM_DELETE = 0x00000002;
+    public const int NIF_MESSAGE = 0x00000001;
+    public const int NIF_ICON = 0x00000002;
+    public const int NIF_TIP = 0x00000004;
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct NOTIFYICONDATA
+    {
+        public int cbSize;
+        public IntPtr hWnd;
+        public int uID;
+        public int uFlags;
+        public int uCallbackMessage;
+        public IntPtr hIcon;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+        public string szTip;
+        public int dwState;
+        public int dwStateMask;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        public string szInfo;
+        public int uVersionOrTimeout;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+        public string szInfoTitle;
+        public int dwInfoFlags;
+        public Guid guidItem;
+        public IntPtr hBalloonIcon;
+    }
+
+    [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool Shell_NotifyIcon(int dwMessage, ref NOTIFYICONDATA lpData);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool DestroyIcon(IntPtr hIcon);
 }

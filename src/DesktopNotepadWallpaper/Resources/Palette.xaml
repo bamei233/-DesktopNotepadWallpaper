@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- ==================== 设计规范调色板（浅色） ==================== -->
+    <!-- 主题色：柔和靛蓝，覆盖 HandyControl 默认 PrimaryBrush -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#5B5BD6" />
+
+    <!-- 背景与卡片 -->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#F7F7F9" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#FFFFFF" />
+
+    <!-- 文字 -->
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1F1F1F" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#6E6E80" />
+    <SolidColorBrush x:Key="TextTertiaryBrush" Color="#DEDEDE" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#A5A5B4" />
+
+    <!-- 边框与强调 -->
+    <SolidColorBrush x:Key="BorderLightBrush" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#EBEBFF" />
+    <SolidColorBrush x:Key="AccentSoftHoverBrush" Color="#E6E6FA" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#E81123" />
+</ResourceDictionary>

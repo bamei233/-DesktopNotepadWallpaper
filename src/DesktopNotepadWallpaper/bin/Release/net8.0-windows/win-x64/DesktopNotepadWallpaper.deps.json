@@ -13,6 +13,7 @@
           "HandyControl": "3.5.1",
           "Microsoft.NET.ILLink.Tasks": "8.0.31",
           "SixLabors.ImageSharp": "3.1.5",
+          "System.Drawing.Common": "8.0.11",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "8.0.31",
           "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x64": "8.0.31"
         },
@@ -996,12 +997,18 @@
         }
       },
       "Microsoft.NET.ILLink.Tasks/8.0.31": {},
+      "Microsoft.Win32.SystemEvents/8.0.0": {},
       "SixLabors.ImageSharp/3.1.5": {
         "runtime": {
           "lib/net6.0/SixLabors.ImageSharp.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.1.5.0"
           }
+        }
+      },
+      "System.Drawing.Common/8.0.11": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "8.0.0"
         }
       },
       "System.IO.Packaging/8.0.1": {}
@@ -1051,12 +1058,26 @@
       "path": "microsoft.net.illink.tasks/8.0.31",
       "hashPath": "microsoft.net.illink.tasks.8.0.31.nupkg.sha512"
     },
+    "Microsoft.Win32.SystemEvents/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9opKRyOKMCi2xJ7Bj7kxtZ1r9vbzosMvRrdEhVhDz8j8MoBGgB+WmC94yH839NPH+BclAjtQ/pyagvi/8gDLkw==",
+      "path": "microsoft.win32.systemevents/8.0.0",
+      "hashPath": "microsoft.win32.systemevents.8.0.0.nupkg.sha512"
+    },
     "SixLabors.ImageSharp/3.1.5": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-lNtlq7dSI/QEbYey+A0xn48z5w4XHSffF8222cC4F4YwTXfEImuiBavQcWjr49LThT/pRmtWJRcqA/PlL+eJ6g==",
       "path": "sixlabors.imagesharp/3.1.5",
       "hashPath": "sixlabors.imagesharp.3.1.5.nupkg.sha512"
+    },
+    "System.Drawing.Common/8.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AVyutHHKrX0Mt9C9T8W3Ccat3cVauUwvN+EqnVpSQi92nwBqoQ+2ZRvGP1S+rKK+6TGXmRflSYNShVjl2mMBlw==",
+      "path": "system.drawing.common/8.0.11",
+      "hashPath": "system.drawing.common.8.0.11.nupkg.sha512"
     },
     "System.IO.Packaging/8.0.1": {
       "type": "package",

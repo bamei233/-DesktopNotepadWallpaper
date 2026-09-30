@@ -94,3 +94,371 @@
    at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
    at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
 
+[2026-09-29 19:36:23] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:37:00] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:37:00]
+--- System.NullReferenceException: Object reference not set to an instance of an object.
+   at DesktopNotepadWallpaper.Views.MainWindow.SwitchPage(Int32 page) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 126
+   at DesktopNotepadWallpaper.Views.MainWindow.OnNavChecked(Object sender, RoutedEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 112
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.Controls.Primitives.ToggleButton.OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+   at System.Windows.FrameworkElement.OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+   at System.Windows.DependencyObject.NotifyPropertyChange(DependencyPropertyChangedEventArgs args)
+   at System.Windows.DependencyObject.UpdateEffectiveValue(EntryIndex entryIndex, DependencyProperty dp, PropertyMetadata metadata, EffectiveValueEntry oldEntry, EffectiveValueEntry& newEntry, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType)
+   at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.SetValue(Object inst, XamlMember property, Object value)
+   at System.Xaml.XamlObjectWriter.Logic_ApplyPropertyValue(ObjectWriterContext ctx, XamlMember prop, Object value, Boolean onParent)
+   at System.Xaml.XamlObjectWriter.Logic_DoAssignmentToParentProperty(ObjectWriterContext ctx)
+   at System.Xaml.XamlObjectWriter.WriteEndMember()
+   at System.Windows.Markup.WpfXamlLoader.TransformNodes(XamlReader xamlReader, XamlObjectWriter xamlWriter, Boolean onlyLoadOneNode, Boolean skipJournaledProperties, Boolean shouldPassLineNumberInfo, IXamlLineInfo xamlLineInfo, IXamlLineInfoConsumer xamlLineInfoConsumer, XamlContextStack`1 stack, IStyleConnector styleConnector)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   at DesktopNotepadWallpaper.Views.MainWindow.InitializeComponent() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml:line 1
+   at DesktopNotepadWallpaper.Views.MainWindow..ctor() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 28
+   at DesktopNotepadWallpaper.App.OnStartup(StartupEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\App.xaml.cs:line 23
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2026-09-29 19:37:08]
+--- System.NullReferenceException: Object reference not set to an instance of an object.
+   at DesktopNotepadWallpaper.Views.MainWindow.SwitchPage(Int32 page) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 126
+   at DesktopNotepadWallpaper.Views.MainWindow.OnNavChecked(Object sender, RoutedEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 112
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.Controls.Primitives.ToggleButton.OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+   at System.Windows.FrameworkElement.OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+   at System.Windows.DependencyObject.NotifyPropertyChange(DependencyPropertyChangedEventArgs args)
+   at System.Windows.DependencyObject.UpdateEffectiveValue(EntryIndex entryIndex, DependencyProperty dp, PropertyMetadata metadata, EffectiveValueEntry oldEntry, EffectiveValueEntry& newEntry, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType)
+   at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.SetValue(Object inst, XamlMember property, Object value)
+   at System.Xaml.XamlObjectWriter.Logic_ApplyPropertyValue(ObjectWriterContext ctx, XamlMember prop, Object value, Boolean onParent)
+   at System.Xaml.XamlObjectWriter.Logic_DoAssignmentToParentProperty(ObjectWriterContext ctx)
+   at System.Xaml.XamlObjectWriter.WriteEndMember()
+   at System.Windows.Markup.WpfXamlLoader.TransformNodes(XamlReader xamlReader, XamlObjectWriter xamlWriter, Boolean onlyLoadOneNode, Boolean skipJournaledProperties, Boolean shouldPassLineNumberInfo, IXamlLineInfo xamlLineInfo, IXamlLineInfoConsumer xamlLineInfoConsumer, XamlContextStack`1 stack, IStyleConnector styleConnector)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   at DesktopNotepadWallpaper.Views.MainWindow.InitializeComponent() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml:line 1
+   at DesktopNotepadWallpaper.Views.MainWindow..ctor() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 28
+   at DesktopNotepadWallpaper.App.OnStartup(StartupEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\App.xaml.cs:line 23
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2026-09-29 19:37:08]
+--- System.NullReferenceException: Object reference not set to an instance of an object.
+   at DesktopNotepadWallpaper.Views.MainWindow.SwitchPage(Int32 page) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 126
+   at DesktopNotepadWallpaper.Views.MainWindow.OnNavChecked(Object sender, RoutedEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 112
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.Controls.Primitives.ToggleButton.OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+   at System.Windows.FrameworkElement.OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+   at System.Windows.DependencyObject.NotifyPropertyChange(DependencyPropertyChangedEventArgs args)
+   at System.Windows.DependencyObject.UpdateEffectiveValue(EntryIndex entryIndex, DependencyProperty dp, PropertyMetadata metadata, EffectiveValueEntry oldEntry, EffectiveValueEntry& newEntry, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType)
+   at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.SetValue(Object inst, XamlMember property, Object value)
+   at System.Xaml.XamlObjectWriter.Logic_ApplyPropertyValue(ObjectWriterContext ctx, XamlMember prop, Object value, Boolean onParent)
+   at System.Xaml.XamlObjectWriter.Logic_DoAssignmentToParentProperty(ObjectWriterContext ctx)
+   at System.Xaml.XamlObjectWriter.WriteEndMember()
+   at System.Windows.Markup.WpfXamlLoader.TransformNodes(XamlReader xamlReader, XamlObjectWriter xamlWriter, Boolean onlyLoadOneNode, Boolean skipJournaledProperties, Boolean shouldPassLineNumberInfo, IXamlLineInfo xamlLineInfo, IXamlLineInfoConsumer xamlLineInfoConsumer, XamlContextStack`1 stack, IStyleConnector styleConnector)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   at DesktopNotepadWallpaper.Views.MainWindow.InitializeComponent() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml:line 1
+   at DesktopNotepadWallpaper.Views.MainWindow..ctor() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Views\MainWindow.xaml.cs:line 28
+   at DesktopNotepadWallpaper.App.OnStartup(StartupEventArgs e) in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\App.xaml.cs:line 23
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+   at System.Windows.Threading.DispatcherOperation.InvokeImpl()
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.DispatcherOperation.Invoke()
+   at System.Windows.Threading.Dispatcher.ProcessQueue()
+   at System.Windows.Threading.Dispatcher.WndProcHook(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)
+   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)
+   at MS.Win32.UnsafeNativeMethods.DispatchMessage(MSG& msg)
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:38:04] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:38:05]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:38:49] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:38:51]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:39:18] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:39:20]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:39:27] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:39:29]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:39:49] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:39:50]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:40:23]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:41:15]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:45:04] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:45:06]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:45:16]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:45:46]
+--- System.ComponentModel.Win32Exception: 无效的窗口句柄。
+   at MS.Win32.HwndWrapper.DestroyWindow(Object args)
+   at MS.Win32.HwndWrapper.Dispose(Boolean disposing, Boolean isHwndBeingDestroyed)
+   at MS.Win32.HwndWrapper.Dispose()
+   at System.Windows.Interop.HwndSource.Dispose(Boolean disposing)
+   at System.Windows.Interop.HwndSource.WeakEventDispatcherShutdown.OnShutdownFinished(Object sender, EventArgs e)
+   at System.Windows.Threading.Dispatcher.ShutdownImplInSecurityContext(Object state)
+   at MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at MS.Internal.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Windows.Threading.Dispatcher.ShutdownImpl()
+   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+   at DesktopNotepadWallpaper.Tests.Helpers.StaUiFixture.<>c__DisplayClass1_0.<.ctor>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\Helpers\StaUiFixture.cs:line 18
+
+[2026-09-29 19:51:02] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 19:51:14] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:04:19] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:05:43] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:05:56] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:12:26] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:12:37] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:22:24] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 20:22:35] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 21:43:03] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 21:43:14] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 21:44:59] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 21:45:12] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 22:47:20] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 22:48:03] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
+[2026-09-29 22:48:14] 壁纸后台线程异常: System.InvalidOperationException: 测试异常
+   at DesktopNotepadWallpaper.Tests.BackgroundStaRenderExecutorTests.<>c__DisplayClass1_0.<Execute_动作抛异常_被兜底且执行器仍可用>b__0() in C:\Users\1\Desktop\记事壁纸\tests\DesktopNotepadWallpaper.Tests\BackgroundStaRenderExecutorTests.cs:line 36
+   at DesktopNotepadWallpaper.Services.BackgroundStaRenderExecutor.<>c__DisplayClass0_0.<Execute>b__0() in C:\Users\1\Desktop\记事壁纸\src\DesktopNotepadWallpaper\Services\IWallpaperRenderExecutor.cs:line 20
+
